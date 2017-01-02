@@ -9,7 +9,8 @@ const dest = './server/public';
 
 const configs = [
     require('./webpack.jquery.js'),
-    require('./webpack.rxjs.js')
+    require('./webpack.rxjs.js'),
+    require('./webpack.elm.js')
 ];
 
 function createWebpackTasks() {
