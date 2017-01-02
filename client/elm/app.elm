@@ -1,6 +1,7 @@
 module App exposing (..)
 
 import Html exposing (Html, button, div, span, text)
+import Html.Attributes exposing (style)
 import Html.Events exposing (onClick)
 
 main =
@@ -31,7 +32,7 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-  div []
+  div [ style [("margin", "8px")] ]
     [ button [ onClick Increment ] [ text "Up" ]
     , button [ onClick Decrement ] [ text "Down" ]
     , span [] [ text (toString model) ]
