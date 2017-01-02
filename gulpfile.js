@@ -11,7 +11,8 @@ const configs = [
     require('./webpack.jquery.js'),
     require('./webpack.rxjs.js'),
     require('./webpack.elm.js'),
-    require('./webpack.react.js')
+    require('./webpack.react.js'),
+    require('./webpack.ng2.js')
 ];
 
 function createWebpackTasks() {
@@ -19,10 +20,7 @@ function createWebpackTasks() {
         const taskName = `webpack-${index}`;
         gulp.task(taskName, done => {
             webpack(config, (err, stats) => {
-                if (err)
-                    console.log(`[${taskName}] ${err}`);
-                // else
-                //     console.log(`[${taskName}] ${stats}`);
+                if (err) console.log(`[${taskName}] ${err}`);
                 done();
             })
         });
