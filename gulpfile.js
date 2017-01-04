@@ -7,7 +7,7 @@ const webpack = require('webpack');
 
 const dest = './server/public';
 
-const configs = [
+const webPackConfigs = [
     require('./webpack.jquery.js'),
     require('./webpack.rxjs.js'),
     require('./webpack.elm.js'),
@@ -16,11 +16,16 @@ const configs = [
 ];
 
 function createWebpackTasks() {
-    return configs.map((config, index) => {
+    return webPackConfigs.map((config, index) => {
         const taskName = `webpack-${index}`;
         gulp.task(taskName, done => {
             webpack(config, (err, stats) => {
-                if (err) console.log(`[${taskName}] ${err}`);
+                if (err)
+                    console.log(`[${taskName}] ${err}`);
+                else {
+                    const errors = stats.toString("errors-only");
+                    if (errors) console.log(`[${taskName}] ${errors}`);
+                }
                 done();
             })
         });
