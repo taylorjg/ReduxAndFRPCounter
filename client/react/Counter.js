@@ -7,7 +7,7 @@ class Counter extends Component {
       <div>
         <button onClick={onIncrement}>Up</button>
         <button onClick={onDecrement}>Down</button>
-        {value}
+        <span>{value}</span>
       </div>
     )
   }

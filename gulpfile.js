@@ -41,12 +41,16 @@ gulp.task('webpack', ['clean'], done =>
     createWebpackTasks()
 );
 
-gulp.task('copyIndex', () =>
-    gulp.src('./client/index.html').pipe(gulp.dest(dest))
-);
+gulp.task('copyTopLevelFiles', () => {
+    const files = [
+        './client/index.html',
+        './client/styles.css'
+    ];
+    return gulp.src(files).pipe(gulp.dest(dest))
+});
 
 gulp.task('build', () => {
-    runSequence('clean', createWebpackTasks(), 'copyIndex');
+    runSequence('clean', createWebpackTasks(), 'copyTopLevelFiles');
 });
 
 gulp.task('default', ['build']);
