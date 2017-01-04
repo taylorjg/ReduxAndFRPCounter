@@ -33,13 +33,13 @@ function createWebpackTasks() {
     });
 }
 
-gulp.task('clean', done =>
-    del([dest], done);
-);
+gulp.task('clean', done => {
+    return del(dest, done);
+});
 
-gulp.task('webpack', ['clean'], done =>
-    createWebpackTasks();
-);
+gulp.task('webpack', () => {
+    return createWebpackTasks();
+});
 
 gulp.task('copyTopLevelFiles', () => {
     const files = [
@@ -50,7 +50,7 @@ gulp.task('copyTopLevelFiles', () => {
 });
 
 gulp.task('build', () => {
-    runSequence('clean', createWebpackTasks(), 'copyTopLevelFiles');
+    return runSequence('clean', createWebpackTasks(), 'copyTopLevelFiles');
 });
 
 gulp.task('default', ['build']);
