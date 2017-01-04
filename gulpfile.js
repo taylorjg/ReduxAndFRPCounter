@@ -34,11 +34,11 @@ function createWebpackTasks() {
 }
 
 gulp.task('clean', done =>
-    del([dest], done)
+    del([dest], done);
 );
 
 gulp.task('webpack', ['clean'], done =>
-    createWebpackTasks()
+    createWebpackTasks();
 );
 
 gulp.task('copyTopLevelFiles', () => {
@@ -46,7 +46,7 @@ gulp.task('copyTopLevelFiles', () => {
         './client/index.html',
         './client/styles.css'
     ];
-    return gulp.src(files).pipe(gulp.dest(dest))
+    return gulp.src(files).pipe(gulp.dest(dest));
 });
 
 gulp.task('build', () => {
