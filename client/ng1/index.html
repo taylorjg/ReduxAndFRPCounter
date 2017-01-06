@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html ng-app="appCounter">
+
+<head>
+    <title>Counter [Redux + Angular 1.x]</title>
+    <link rel="stylesheet" type="text/css" href="../styles.css">
+    <style>[ng-cloak] { display: none; }</style>
+</head>
+
+<body>
+    <div ng-controller="CounterController as vm" ng-cloak>
+        <button ng-click="vm.onIncrement()">Up</button>
+        <button ng-click="vm.onDecrement()">Down</button>
+        <span>{{ vm.counter }}</span>
+    </div>
+    <script src="bundle.js"></script>
+</body>
+
+</html>
