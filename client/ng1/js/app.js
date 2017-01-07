@@ -5,28 +5,34 @@ import { createStore, Store } from 'redux';
 
 const app = angular.module('appCounter', []);
 
-function CounterController() {
+app.component('counter', CounterComponent());
 
-    const vm = this;
-    vm.counter = undefined;
-    vm.onIncrement = onIncrement;
-    vm.onDecrement = onDecrement;
+function CounterComponent() {
+    return {
+        template: `
+            <button ng-click="$ctrl.onIncrement()">Up</button>
+            <button ng-click="$ctrl.onDecrement()">Down</button>
+            <span>{{ $ctrl.counter }}</span>`,
+        controller: class {
 
-    const store = createStore(counter);
-    store.subscribe(() => readState());
-    readState();
+            constructor($scope) {
+                this.store = createStore(counter);
+                const unsubscribe = this.store.subscribe(() => this.readState());
+                this.readState();
+                $scope.$on('$destroy', unsubscribe);
+            }
 
-    function onIncrement() {
-        store.dispatch(actions.increment());
-    }
+            onIncrement() {
+                this.store.dispatch(actions.increment());
+            }
 
-    function onDecrement() {
-        store.dispatch(actions.decrement());
-    }
+            onDecrement() {
+                this.store.dispatch(actions.decrement());
+            }
 
-    function readState() {
-        vm.counter = store.getState();
-    }
+            readState() {
+                this.counter = this.store.getState();
+            }
+        }
+    };
 }
-
-app.controller(CounterController.name, CounterController);
