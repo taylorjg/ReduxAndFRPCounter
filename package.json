@@ -1,6 +1,7 @@
 {
   "name": "reduxandfrpcounter",
-  "version": "1.0.0",
+  "version": "0.0.0",
+  "private": true,
   "description": "I am trying to understand the difference between Redux and FRP",
   "main": "index.html",
   "scripts": {
@@ -45,5 +46,10 @@
     "rxjs": "^5.0.2",
     "systemjs": "^0.19.41",
     "zone.js": "^0.7.4"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/taylorjg/ReduxAndFRPCounter.git"
+  },
+  "homepage": "https://github.com/taylorjg/ReduxAndFRPCounter"
 }
