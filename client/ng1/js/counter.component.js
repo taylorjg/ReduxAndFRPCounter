@@ -1,40 +1,26 @@
-import * as angular from 'angular';
+import angular from 'angular';
 import * as actions from './actions';
-import reducer from './reducers';
-import { createStore, Store } from 'redux';
 
 export default function counter() {
     return {
         template: `
-            <button ng-click="$ctrl.onIncrement()">Up</button>
-            <button ng-click="$ctrl.onDecrement()">Down</button>
+            <button ng-click="$ctrl.increment()">Up</button>
+            <button ng-click="$ctrl.decrement()">Down</button>
             <span>{{ $ctrl.counter }}</span>`,
         controller: CounterController
     };
 }
 
-CounterController.$inject = ['$scope'];
+CounterController.$inject = ['$scope', '$ngRedux'];
 
-function CounterController($scope) {
+function CounterController($scope, $ngRedux) {
 
-    const vm = this;
-    vm.counter = undefined;
-    vm.onIncrement = onIncrement;
-    vm.onDecrement = onDecrement;
+    const unsubscribe = $ngRedux.connect(mapStateToThis, actions)(this);
+    $scope.$on('$destroy', unsubscribe);
 
-    const store = createStore(reducer);
-    $scope.$on('$destroy', store.subscribe(readState.bind(vm)));
-    readState();
-
-    function onIncrement() {
-        store.dispatch(actions.increment());
-    }
-
-    function onDecrement() {
-        store.dispatch(actions.decrement());
-    }
-
-    function readState() {
-        vm.counter = store.getState();
+    function mapStateToThis(state) {
+        return {
+            counter: state
+        };
     }
 }
