@@ -1,30 +1,8 @@
-import { Component, Inject } from '@angular/core';
-import * as actions from './actions';
-import { Store } from 'redux';
-import { StoreToken } from './storeToken';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'app',
-    template: `
-        <div>
-            <button (click)="onIncrement()">Up</button>
-            <button (click)="onDecrement()">Down</button>
-            <span>{{ counter }}</span>
-        </div>`
+    template: `<counter></counter>`
 })
 export class AppComponent {
-    private counter: number;
-    constructor(@Inject(StoreToken) private store: Store<number>) {
-        store.subscribe(() => this.readState());
-        this.readState();
-    }
-    onIncrement() {
-        this.store.dispatch(actions.increment())
-    }
-    onDecrement() {
-        this.store.dispatch(actions.decrement())
-    }
-    private readState() {
-        this.counter = this.store.getState();
-    }
 }
