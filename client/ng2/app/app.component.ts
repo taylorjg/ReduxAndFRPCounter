@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import * as actions from './actions';
-import counter from './reducers';
-import { createStore, Store } from 'redux';
+import { Store } from 'redux';
+import { StoreToken } from './storeToken';
 
 @Component({
     selector: 'app',
@@ -13,11 +13,9 @@ import { createStore, Store } from 'redux';
         </div>`
 })
 export class AppComponent {
-    private store: Store<number>;
     private counter: number;
-    constructor() {
-        this.store = createStore<number>(counter);
-        this.store.subscribe(() => this.readState());
+    constructor(@Inject(StoreToken) private store: Store<number>) {
+        store.subscribe(() => this.readState());
         this.readState();
     }
     onIncrement() {
