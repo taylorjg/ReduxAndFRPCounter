@@ -1,7 +1,7 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-    entry: './client/ng1/js/app.js',
+    entry: './client/ng1/js/app.module.js',
     output: {
         path: './server/public/ng1',
         filename: 'bundle.js',
