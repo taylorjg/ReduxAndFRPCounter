@@ -13,9 +13,9 @@ export default function counter() {
     };
 }
 
-CounterController.$inject = [];
+CounterController.$inject = ['$scope'];
 
-function CounterController() {
+function CounterController($scope) {
 
     const vm = this;
     vm.counter = undefined;
@@ -23,7 +23,7 @@ function CounterController() {
     vm.onDecrement = onDecrement;
 
     const store = createStore(reducer);
-    store.subscribe(() => readState());
+    $scope.$on('$destroy', store.subscribe(readState.bind(vm)));
     readState();
 
     function onIncrement() {
