@@ -1,10 +1,10 @@
-import { Component, Inject } from '@angular/core';
-import * as actions from './actions';
-import { Store } from 'redux';
-import { StoreToken } from './storeToken';
+import { Component, Inject } from "@angular/core";
+import * as actions from "./actions";
+import { Store } from "redux";
+import { StoreToken } from "./storeToken";
 
 @Component({
-    selector: 'counter',
+    selector: "counter",
     template: `
         <div>
             <button (click)="onIncrement()">Up</button>
@@ -19,10 +19,10 @@ export class CounterComponent {
         this.readState();
     }
     onIncrement() {
-        this.store.dispatch(actions.increment())
+        this.store.dispatch(actions.increment());
     }
     onDecrement() {
-        this.store.dispatch(actions.decrement())
+        this.store.dispatch(actions.decrement());
     }
     private readState() {
         this.counter = this.store.getState();
