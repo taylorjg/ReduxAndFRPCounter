@@ -5,8 +5,8 @@ let $counter;
 
 $(document).ready(() => {
     $counter = $('#counter');
-    $('#incrementBtn').click(_ => onIncrement());
-    $('#decrementBtn').click(_ => onDecrement());
+    $('#incrementBtn').click(() => onIncrement());
+    $('#decrementBtn').click(() => onDecrement());
     updateCounter();
 });
 

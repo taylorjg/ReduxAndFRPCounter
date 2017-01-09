@@ -11,10 +11,12 @@ module.exports = {
             { context: './client/ng1', from: '**/*.html' }
         ])
     ],
-    // resolve: {
-    //     extensions: ['', '.ts', '.js']
-    // },
     module: {
+        preLoaders: [{
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loader: 'eslint'
+        }],
         loaders: [{
             test: /\.js$/,
             exclude: /node_modules/,

@@ -1,7 +1,5 @@
-import React from 'react';
 import ReactDOM from 'react-dom'
 import { createStore } from 'redux';
-import Counter from './Counter';
 import counter from './reducers';
 import * as actions from './actions';
 

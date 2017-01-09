@@ -12,5 +12,5 @@ $(document).ready(() => {
     const downs = downClicks.mapTo(DECREMENT);
     const upsAndDowns = Rx.Observable.merge(ups, downs);
     const values = upsAndDowns.scan((acc, curr) => acc + (curr === INCREMENT ? 1 : -1), 0).startWith(0);
-    const subscription = values.subscribe(v => $counter.html(v));
+    values.subscribe(v => $counter.html(v));
 });
