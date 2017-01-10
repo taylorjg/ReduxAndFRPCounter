@@ -17,7 +17,7 @@ const render = () => {
             />,
         rootElement
     );
-}
+};
 
 render();
 store.subscribe(render);
