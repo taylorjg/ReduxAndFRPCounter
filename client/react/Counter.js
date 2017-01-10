@@ -1,4 +1,4 @@
-import { Component, PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react';
 
 class Counter extends Component {
   render() {
@@ -19,4 +19,4 @@ Counter.propTypes = {
     onDecrement: PropTypes.func.isRequired
 }
 
-export default Counter
+export default Counter;
