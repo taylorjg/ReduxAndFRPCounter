@@ -1,34 +1,39 @@
 'use strict';
 
 const gulp = require('gulp');
+const gutil = require('gutil');
 const runSequence = require('run-sequence');
 const del = require('del');
 const webpack = require('webpack');
 
 const dest = './server/public';
 
+function makeConfigTuple(configFileName) {
+    return [configFileName, require(configFileName)];
+}
+
 const webPackConfigs = [
-    require('./webpack.jquery.js'),
-    require('./webpack.rxjs.js'),
-    require('./webpack.react.js'),
-    require('./webpack.ng1.js'),
-    require('./webpack.ng2.js'),
-    require('./webpack.elm.js')
+    makeConfigTuple('./webpack.jquery.js'),
+    makeConfigTuple('./webpack.rxjs.js'),
+    makeConfigTuple('./webpack.react.js'),
+    makeConfigTuple('./webpack.ng1.js'),
+    makeConfigTuple('./webpack.ng2.js'),
+    makeConfigTuple('./webpack.elm.js')
 ];
 
 function createWebpackTasks() {
-    return webPackConfigs.map((config, index) => {
-        const taskName = `webpack-${index}`;
+    return webPackConfigs.map(tuple => {
+        const configFileName = tuple[0];
+        const config = tuple[1];
+        const client = /\.\/.*?\.(.*?)\.js/.exec(configFileName)[1];
+        const taskName = `webpack-${client}`;
         gulp.task(taskName, done => {
             webpack(config, (err, stats) => {
-                if (err)
-                    console.log(`[${taskName}] ${err}`);
-                else {
-                    const errors = stats.toString("errors-only");
-                    if (errors) console.log(`[${taskName}] ${errors}`);
-                }
+                if (err) throw new gutil.PluginError('webpack', err);
+                const errors = stats.toString("errors-only");
+                if (errors) gutil.log('[${taskName}]', errors);
                 done();
-            })
+            });
         });
         return taskName;
     });
