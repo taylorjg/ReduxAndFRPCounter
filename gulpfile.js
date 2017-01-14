@@ -25,13 +25,13 @@ function createWebpackTasks() {
     return webPackConfigs.map(tuple => {
         const configFileName = tuple[0];
         const config = tuple[1];
-        const client = /\.\/.*?\.(.*?)\.js/.exec(configFileName)[1];
+        const client = /\.\/.*\.(.*)\.js/.exec(configFileName)[1];
         const taskName = `webpack-${client}`;
         gulp.task(taskName, done => {
             webpack(config, (err, stats) => {
                 if (err) throw new gutil.PluginError('webpack', err);
-                const errors = stats.toString("errors-only");
-                if (errors) gutil.log('[${taskName}]', errors);
+                const errors = stats.toString('errors-only');
+                if (errors) gutil.log(`[${taskName}]`, errors);
                 done();
             });
         });
