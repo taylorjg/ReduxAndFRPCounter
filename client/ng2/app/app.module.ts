@@ -1,20 +1,18 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
+import { NgReduxModule, NgRedux } from "ng2-redux";
 import { AppComponent } from "./app.component";
 import { CounterComponent } from "./counter.component";
-import { StoreToken } from "./storeToken";
-import reducer from "./reducers";
-import { createStore, Store } from "redux";
-
-const store = createStore<number>(reducer);
+import { AppState, initialState } from "./appState";
+import { rootReducer } from "./reducers";
 
 @NgModule({
-    imports: [BrowserModule],
+    imports: [BrowserModule, NgReduxModule],
     declarations: [AppComponent, CounterComponent],
-    bootstrap: [AppComponent],
-    providers: [
-        { provide: StoreToken, useValue: store }
-    ]
+    bootstrap: [AppComponent]
 })
 export class AppModule {
+    constructor(ngRedux: NgRedux<AppState>) {
+        ngRedux.configureStore(rootReducer, initialState);
+    }
 }

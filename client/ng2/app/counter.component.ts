@@ -1,7 +1,7 @@
 import { Component, Inject } from "@angular/core";
+import { NgRedux, select } from "ng2-redux";
+import { Observable } from "rxjs/Observable";
 import * as actions from "./actions";
-import { Store } from "redux";
-import { StoreToken } from "./storeToken";
 
 @Component({
     selector: "counter",
@@ -9,22 +9,17 @@ import { StoreToken } from "./storeToken";
         <div>
             <button (click)="onIncrement()">Up</button>
             <button (click)="onDecrement()">Down</button>
-            <span>{{ counter }}</span>
+            <span>{{ counter$ | async }}</span>
         </div>`
 })
 export class CounterComponent {
-    private counter: number;
-    constructor(@Inject(StoreToken) private store: Store<number>) {
-        store.subscribe(() => this.readState());
-        this.readState();
+    @select() counter$: Observable<number>;
+    constructor(private ngRedux: NgRedux<number>) {
     }
     onIncrement() {
-        this.store.dispatch(actions.increment());
+        this.ngRedux.dispatch(actions.increment());
     }
     onDecrement() {
-        this.store.dispatch(actions.decrement());
-    }
-    private readState() {
-        this.counter = this.store.getState();
+        this.ngRedux.dispatch(actions.decrement());
     }
 }
